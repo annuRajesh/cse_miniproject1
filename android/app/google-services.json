@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "617622530809",
+    "project_id": "fooddelivery-33f84",
+    "storage_bucket": "fooddelivery-33f84.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617622530809:android:b3f5b617c1f7d966099028",
+        "android_client_info": {
+          "package_name": "com.example.monkey_app_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617622530809-7kdottk6gf1uk18smo7dfsdd254881f0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL2rbKzv3-50r3x3DUUWQd05YoRKFFuQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617622530809-7kdottk6gf1uk18smo7dfsdd254881f0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "617622530809-kq1giffnr5ne5rg5li7ha714hmutraa6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.monkeyAppDemo"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617622530809:android:636339798302f3d4099028",
+        "android_client_info": {
+          "package_name": "homely.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617622530809-7kdottk6gf1uk18smo7dfsdd254881f0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL2rbKzv3-50r3x3DUUWQd05YoRKFFuQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617622530809-7kdottk6gf1uk18smo7dfsdd254881f0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "617622530809-kq1giffnr5ne5rg5li7ha714hmutraa6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.monkeyAppDemo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
