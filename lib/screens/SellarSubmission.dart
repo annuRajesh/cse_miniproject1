@@ -43,28 +43,19 @@ class SellerSubmit extends StatelessWidget {
         'Email': sellerEmail.text,
         'Fssai': sellerFssai.text
       });
-      showDialog(
-        context: context,
-        builder: (BuildContext) {
-          return AlertDialog(
-            title: Text('Successfully Submitted'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
     }
 
     return Scaffold(
-      appBar: AppBar(leading: BackButton(onPressed: () {
-        Navigator.of(context).pushReplacementNamed(SellerLoginScreen.routeName);
-      })),
+      appBar: AppBar(
+          leading: IconButton(
+        onPressed: () {
+          Navigator.of(context)
+              .pushReplacementNamed(SellerLoginScreen.routeName);
+        },
+        icon: Icon(
+          Icons.arrow_back,
+        ),
+      )),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(100),
