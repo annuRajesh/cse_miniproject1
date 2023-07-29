@@ -41,7 +41,6 @@ class SellerOrdersScreen extends StatelessWidget {
                       ),
                       ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
                         itemCount: items.length,
                         itemBuilder: (context, index) {
                           var item = items[index];
