@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cse_miniproject/const/colors.dart';
-//import 'package:monkey_app_demo/screens/checkoutScreen.dart';
+//import 'package:cse_miniproject/screens/checkoutScreen.dart';
 import 'package:cse_miniproject/screens/paymentScreen.dart';
 
 import 'package:cse_miniproject/screens/OrderPlacedScreen.dart';
@@ -200,10 +200,10 @@ class MyOrderScreen extends StatelessWidget {
 // import 'package:flutter/material.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:monkey_app_demo/const/colors.dart';
-// import 'package:monkey_app_demo/screens/checkoutScreen.dart';
-// import 'package:monkey_app_demo/utils/helper.dart';
-// import 'package:monkey_app_demo/widgets/customNavBar.dart';
+// import 'package:cse_miniproject/const/colors.dart';
+// import 'package:cse_miniproject/screens/checkoutScreen.dart';
+// import 'package:cse_miniproject/utils/helper.dart';
+// import 'package:cse_miniproject/widgets/customNavBar.dart';
 
 // class MyOrderScreen extends StatelessWidget {
 //   static const routeName = "/myOrderScreen";

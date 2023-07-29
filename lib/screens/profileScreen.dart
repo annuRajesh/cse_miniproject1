@@ -5,7 +5,7 @@ import 'package:cse_miniproject/screens/introScreen.dart';
 import 'package:cse_miniproject/screens/loginScreen.dart';
 import 'package:cse_miniproject/utils/helper.dart';
 import 'package:cse_miniproject/widgets/customNavBar.dart';
-//import 'package:monkey_app_demo/widgets/customTextInput.dart';
+//import 'package:cse_miniproject/widgets/customTextInput.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';

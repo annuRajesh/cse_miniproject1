@@ -13,24 +13,30 @@ final TextEditingController sellerFssai = TextEditingController();
 class SellerSubmit extends StatelessWidget {
   const SellerSubmit({Key key}) : super(key: key);
   static const routeName = '/SellerSubmit';
-  void sendEmail() async {
-    final Email email = Email(
-        body:
-            "here are the details of ${sellerCompany},fssai number: ${sellerFssai},email: ${sellerEmail}",
-        subject: "Details",
-        recipients: ['homebakersmini@gmail.com'],
-        isHTML: false);
-    try {
-      await FlutterEmailSender.send(email);
-      print('Success run');
-    } catch (error) {
-      print('There is an error:$error');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     bool isSubmitted = false;
+    void sendEmail() async {
+      final String company = sellerCompany.text;
+      final String s_email = sellerEmail.text;
+      final String fssai = sellerFssai.text;
+      final Email email = Email(
+          body:
+              "The details to be submitted for the registration<br>Company Name:$company<br>The fssai number: $fssai<br>the email: $s_email",
+          subject: "Details",
+          recipients: ['homebakersmini@gmail.com'],
+          isHTML: true);
+      try {
+        await FlutterEmailSender.send(email);
+        print('Success run');
+      } catch (error) {
+        print('There is an error:$error');
+      } finally {
+        Navigator.of(context).pushReplacementNamed(SellerLoginScreen.routeName);
+      }
+    }
+
     void submitForm() async {
       await db.collection('seller_submit').doc().set({
         'CompanyName': sellerCompany.text,

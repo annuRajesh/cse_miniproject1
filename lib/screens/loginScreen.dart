@@ -1,7 +1,8 @@
+import 'package:cse_miniproject/screens/introScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:cse_miniproject/screens/forgetPwScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cse_miniproject/screens/landingScreen.dart';
+//import 'package:cse_miniproject/screens/introScreen.dart';
 import '../const/colors.dart';
 import '../screens/forgetPwScreen.dart';
 import '../screens/homeScreen.dart';
@@ -22,7 +23,7 @@ class LoginScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Homely"),
         leading: BackButton(onPressed: () {
-          Navigator.of(context).pop();
+          Navigator.of(context).pushReplacementNamed(IntroScreen.routeName);
         }),
       ),
       body: Container(

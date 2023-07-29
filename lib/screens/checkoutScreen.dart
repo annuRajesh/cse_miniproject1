@@ -128,12 +128,12 @@ class CheckoutScreen extends StatelessWidget {
 
 
 // import 'package:flutter/material.dart';
-// import 'package:monkey_app_demo/const/colors.dart';
-// import 'package:monkey_app_demo/screens/changeAddressScreen.dart';
-// import 'package:monkey_app_demo/screens/homeScreen.dart';
-// import 'package:monkey_app_demo/utils/helper.dart';
-// import 'package:monkey_app_demo/widgets/customNavBar.dart';
-// import 'package:monkey_app_demo/widgets/customTextInput.dart';
+// import 'package:cse_miniproject/const/colors.dart';
+// import 'package:cse_miniproject/screens/changeAddressScreen.dart';
+// import 'package:cse_miniproject/screens/homeScreen.dart';
+// import 'package:cse_miniproject/utils/helper.dart';
+// import 'package:cse_miniproject/widgets/customNavBar.dart';
+// import 'package:cse_miniproject/widgets/customTextInput.dart';
 
 // class CheckoutScreen extends StatelessWidget {
 //   static const routeName = "/checkoutScreen";
