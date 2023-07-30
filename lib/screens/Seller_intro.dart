@@ -1,3 +1,4 @@
+import 'package:cse_miniproject/screens/SellerOrdersStateScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:cse_miniproject/screens/SellerOrdersScreen.dart';
 import 'package:cse_miniproject/screens/seller_foodlist.dart';
@@ -41,7 +42,7 @@ class sellerIntro extends StatelessWidget {
                 child: Text('Orders'),
                 onPressed: () {
                   Navigator.of(context)
-                      .pushReplacementNamed(SellerOrdersScreen.routeName);
+                      .pushReplacementNamed(SellerStateOrdersScreen.routeName);
                 },
                 style: ElevatedButton.styleFrom(
                     shadowColor: Colors.grey[800], elevation: 10),

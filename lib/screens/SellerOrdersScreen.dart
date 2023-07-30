@@ -37,7 +37,7 @@ class SellerOrdersScreen extends StatelessWidget {
                     children: [
                       ListTile(
                         subtitle:
-                            Text('Order Status: ${orderData['order status']}'),
+                            Text('Order Status: ${orderData['order_status']}'),
                       ),
                       ListView.builder(
                         shrinkWrap: true,
@@ -68,13 +68,31 @@ class SellerOrdersScreen extends StatelessWidget {
                         onPressed: () async {
                           FirebaseFirestore firestore =
                               FirebaseFirestore.instance;
-                          await firestore
-                              .collection('orders')
-                              .doc(orderId)
-                              .set({'order status': status});
+                          CollectionReference<Map<String, dynamic>>
+                              notification = FirebaseFirestore.instance
+                                  .collection('notification');
+                          //var product_id = item['foodId'];
+
+                          await notification.add({
+                            'seller_id': user.uid,
+                            'status': status,
+                            'buyer_id': orderData['buyer id'],
+                            'timestamp': DateTime.now()
+                          });
                         },
-                        child: Text('submit'),
-                      ))
+                        child: Text('Accept'),
+                      )),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        child: ElevatedButton(
+                          child: Center(
+                            child: Text('reject'),
+                          ),
+                          onPressed: () {},
+                        ),
+                      )
                     ],
                   ),
                 );

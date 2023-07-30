@@ -176,8 +176,58 @@ class MyOrderScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10),
                           ElevatedButton(
-                            onPressed: () => _payOnDelivery(
-                                context), // Navigate to OrderPlacedScreen
+                            onPressed: () async {
+                              try {
+                                User user = FirebaseAuth.instance.currentUser;
+                                CollectionReference ordersCollection =
+                                    FirebaseFirestore.instance
+                                        .collection('orders');
+                                Stream<QuerySnapshot> cartCollection =
+                                    FirebaseFirestore.instance
+                                        .collection('cart')
+                                        .where('user_id', isEqualTo: user.uid)
+                                        .snapshots();
+
+                                // Retrieve the cart items from the cart collection
+                                QuerySnapshot cartSnapshot =
+                                    await cartCollection.first;
+                                List<QueryDocumentSnapshot> cartDocuments =
+                                    cartSnapshot.docs;
+                                List<Map<String, dynamic>> cartItems =
+                                    cartDocuments
+                                        .map((doc) =>
+                                            doc.data() as Map<String, dynamic>)
+                                        .toList();
+
+                                // Create an order document in the orders collection
+
+                                DocumentReference orderDocRef =
+                                    await ordersCollection.add({
+                                  'buyer id': user.uid,
+                                  'date': DateTime.now(),
+                                  'items':
+                                      cartItems, // Placeholder for the ordered items
+                                  'order_status': 'pending',
+                                  'seller_id': cartItems[0]['seller_id'],
+                                  'time': '',
+                                  'payment_id': '0',
+                                  'payment_mode': 'cash'
+                                });
+
+                                print(
+                                    'Order added successfully: ${orderDocRef.id}');
+                                // Delete the cart items
+                                for (QueryDocumentSnapshot cartItem
+                                    in cartDocuments) {
+                                  await cartItem.reference.delete();
+                                }
+                                print('Cart items deleted successfully');
+                                Navigator.of(context).pushReplacementNamed(
+                                    OrderPlacedScreen.routeName);
+                              } catch (e) {
+                                print('Failed to add order: $e');
+                              }
+                            }, // Navigate to OrderPlacedScreen
                             child: Text("Pay on Delivery"),
                           ),
                         ],

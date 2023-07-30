@@ -1,3 +1,4 @@
+import 'package:cse_miniproject/screens/SellerOrdersStateScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:cse_miniproject/screens/EnterFood.dart';
 import 'package:cse_miniproject/screens/SellarSubmission.dart';
@@ -139,7 +140,9 @@ class MyApp extends StatelessWidget {
         SellerFoodList.routeName: (context) => SellerFoodList(),
         OrderPlacedScreen.routeName: (context) => OrderPlacedScreen(),
         ReadReview.routeName: (context) => ReadReview(),
-        SellerOrdersScreen.routeName: (context) => SellerOrdersScreen()
+        SellerOrdersScreen.routeName: (context) => SellerOrdersScreen(),
+        SellerStateOrdersScreen.routeName: (context) =>
+            SellerStateOrdersScreen()
       },
     );
   }

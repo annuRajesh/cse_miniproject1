@@ -1,10 +1,12 @@
+import 'package:cse_miniproject/screens/Seller_intro.dart';
+import 'package:cse_miniproject/screens/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:cse_miniproject/screens/SellarSubmission.dart';
 import 'package:cse_miniproject/screens/SellerloginScreen.dart';
 //import 'package:clip_shadow/clip_shadow.dart';
 import 'package:cse_miniproject/screens/loginScreen.dart';
 import 'package:cse_miniproject/screens/signUpScreen.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 //import '../const/colors.dart';
 import '../utils/helper.dart';
 
@@ -41,9 +43,17 @@ class LandingScreen extends StatelessWidget {
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacementNamed(LoginScreen.routeName);
+                          onPressed: () async {
+                            FirebaseAuth auth = FirebaseAuth.instance;
+                            User user = auth.currentUser;
+
+                            if (user != null) {
+                              Navigator.of(context)
+                                  .pushReplacementNamed(HomeScreen.routeName);
+                            } else {
+                              Navigator.of(context)
+                                  .pushReplacementNamed(LoginScreen.routeName);
+                            }
                           },
                           child: Text("Login"),
                         ),
@@ -53,9 +63,17 @@ class LandingScreen extends StatelessWidget {
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pushReplacementNamed(
-                                SellerLoginScreen.routeName);
+                          onPressed: () async {
+                            FirebaseAuth auth = FirebaseAuth.instance;
+                            User user = auth.currentUser;
+
+                            if (user != null) {
+                              Navigator.of(context)
+                                  .pushReplacementNamed(sellerIntro.routeName);
+                            } else {
+                              Navigator.of(context).pushReplacementNamed(
+                                  SellerLoginScreen.routeName);
+                            }
                           },
                           child: Text("Homely Chef"),
                         ),

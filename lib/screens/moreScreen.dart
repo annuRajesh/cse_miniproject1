@@ -1,3 +1,5 @@
+import 'package:cse_miniproject/screens/landingScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cse_miniproject/const/colors.dart';
 import 'package:cse_miniproject/screens/aboutScreen.dart';
@@ -97,8 +99,29 @@ class MoreScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: ElevatedButton(
+                        child: Center(child: Text('Log Out')),
+                        onPressed: () async {
+                          try {
+                            await FirebaseAuth.instance.signOut();
+                            Navigator.of(context)
+                                .pushReplacementNamed(LandingScreen.routeName);
+
+                            // If you want to navigate the user to the login screen after logout, you can use the following line:
+                            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                          } catch (e) {
+                            print("Error during logout: $e");
+                            // Handle any errors that occur during logout
+                          }
+                        },
+                      ),
+                    ),
+                  )
                 ]),
               ),
             ),

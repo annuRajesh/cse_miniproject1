@@ -43,7 +43,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         'buyer id': user.uid,
         'date': DateTime.now(),
         'items': cartItems, // Placeholder for the ordered items
-        'order status': '',
+        'order_status': 'pending',
         'seller_id': cartItems[0]['seller_id'],
         'time': '',
         'payment_id': '${paymentId}',
