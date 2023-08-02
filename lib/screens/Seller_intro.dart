@@ -1,4 +1,6 @@
 import 'package:cse_miniproject/screens/SellerOrdersStateScreen.dart';
+import 'package:cse_miniproject/screens/landingScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cse_miniproject/screens/SellerOrdersScreen.dart';
 import 'package:cse_miniproject/screens/seller_foodlist.dart';
@@ -54,6 +56,18 @@ class sellerIntro extends StatelessWidget {
             child: SizedBox(
               height: 50,
               width: 200,
+              child: ElevatedButton(
+                child: Text('Log Out'),
+                onPressed: () async {
+                  try {
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.of(context)
+                        .pushReplacementNamed(LandingScreen.routeName);
+                  } catch (error) {
+                    print('error:$error');
+                  }
+                },
+              ),
             ),
           ),
         ]),
