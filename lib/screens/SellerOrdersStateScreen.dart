@@ -1,7 +1,10 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cse_miniproject/screens/Seller_intro.dart';
+
+final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
 class SellerStateOrdersScreen extends StatefulWidget {
   static const routeName = "/sellerStateOrdersScreen";
@@ -70,6 +73,18 @@ class _SellerStateOrdersScreenState extends State<SellerStateOrdersScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _firebaseMessaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    _firebaseMessaging.getToken().then((token) {
+      print("FCM Token: $token");
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

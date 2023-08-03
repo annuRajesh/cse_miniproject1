@@ -21,7 +21,7 @@ class SellerNotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Notifications')),
+        appBar: AppBar(title: const Text('Notifications')),
         body: FutureBuilder<List<OrderCard>>(
           future: Ordercollection(),
           builder: ((context, snapshot) {

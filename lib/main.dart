@@ -1,4 +1,5 @@
 import 'package:cse_miniproject/screens/SellerOrdersStateScreen.dart';
+import 'package:cse_miniproject/screens/seller_notificationScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:cse_miniproject/screens/EnterFood.dart';
 import 'package:cse_miniproject/screens/SellarSubmission.dart';
@@ -40,6 +41,7 @@ import './const/colors.dart';
 import './firebase_options.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import './screens/sellar_signUpScreen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 //const primaryColor = Color.fromARGB(255, 71, 203, 97);
 void main() async {
@@ -142,7 +144,7 @@ class MyApp extends StatelessWidget {
         ReadReview.routeName: (context) => ReadReview(),
         SellerOrdersScreen.routeName: (context) => SellerOrdersScreen(),
         SellerStateOrdersScreen.routeName: (context) =>
-            SellerStateOrdersScreen()
+            SellerStateOrdersScreen(),
       },
     );
   }
