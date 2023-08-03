@@ -122,11 +122,6 @@ class _SellerStateOrdersScreenState extends State<SellerStateOrdersScreen> {
                       ),
                       SizedBox(height: 16),
                       SizedBox(
-                        child: TextField(
-                          controller: status,
-                        ),
-                      ),
-                      SizedBox(
                           child: orderData['order_status'] == 'pending'
                               ? SizedBox(
                                   child: Column(
@@ -163,8 +158,15 @@ class _SellerStateOrdersScreenState extends State<SellerStateOrdersScreen> {
                                             child: Text('Completed'),
                                           ),
                                         )
-                                      : SizedBox()),
-                      SizedBox(
+                                      : SizedBox(
+                                          child: ElevatedButton(
+                                              child: orderData[
+                                                          'payment_mode'] !=
+                                                      'online'
+                                                  ? Text('paid')
+                                                  : const Text(
+                                                      'Enter payment amount')))),
+                      const SizedBox(
                         height: 10,
                       ),
                       ElevatedButton(
@@ -179,11 +181,11 @@ class _SellerStateOrdersScreenState extends State<SellerStateOrdersScreen> {
               },
             );
           } else if (snapshot.hasError) {
-            return Center(
+            return const Center(
               child: Text('Error fetching data.'),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
