@@ -1,116 +1,120 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cse_miniproject/screens/menuScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:cse_miniproject/const/colors.dart';
-import 'package:cse_miniproject/utils/helper.dart';
-import 'package:cse_miniproject/widgets/customNavBar.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-class NotificationScreen extends StatefulWidget {
-  static const routeName = "/notiScreen";
+class NotificationScreen extends StatelessWidget {
+  static const routeName = "/NotificationScreen";
 
-  @override
-  _NotificationScreenState createState() => _NotificationScreenState();
-}
-
-class _NotificationScreenState extends State<NotificationScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
-  @override
-  void initState() {
-    super.initState();
-    // Initialize Firebase Messaging
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      // Handle the incoming message and show a local notification
-      showNotification(message.data['title'], message.data['body']);
-    });
-
-    // Initialize the local notifications plugin
-    var initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
-
-    var initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
-    flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  }
-
-  Future<void> showNotification(String title, String body) async {
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'channel_id', // Change this to a unique ID for your app
-      'Channel Name', // Change this to a custom name for the channel
-      // Change this to a custom description for the channel
-      importance: Importance.max,
-      priority: Priority.high,
-      ticker: 'ticker',
-    );
-
-    var platformChannelSpecifics = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-    );
-
-    await flutterLocalNotificationsPlugin.show(
-      0, // Change this to a unique ID for each notification
-      title,
-      body,
-      platformChannelSpecifics,
-      payload:
-          'payload', // Optionally pass data associated with the notification
-    );
-  }
+  final User user = FirebaseAuth.instance.currentUser;
+  final CollectionReference orderCollection =
+      FirebaseFirestore.instance.collection('orders');
+  final CollectionReference notificationCollection =
+      FirebaseFirestore.instance.collection('notification');
+// Function to create a new notification document
+  // Function to create a new notification document
 
   @override
   Widget build(BuildContext context) {
-    final User user = _auth.currentUser;
-    final CollectionReference<Map<String, dynamic>> ordersCollection =
-        _firestore.collection('orders');
+    if (user == null) {
+      // User is not authenticated, handle accordingly
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Notifications'),
+        ),
+        body: Center(
+          child: Text('User not authenticated'),
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Notifications'),
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: ordersCollection
-            .where('buyer_id', isEqualTo: user.uid)
-            .snapshots(), // Listen for changes in the collection
+        stream:
+            orderCollection.where('buyer id', isEqualTo: user.uid).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(
               child: Text('Error fetching data: ${snapshot.error}'),
             );
+          } else if (!snapshot.hasData) {
+            return const Center(
+              child: Text('No data found.'),
+            );
           } else {
-            List<Map<String, dynamic>> notilist = [];
-            snapshot.data?.docs.forEach((document) {
-              notilist.add(document.data());
-            });
+            List<DocumentSnapshot<Map<String, dynamic>>> documents =
+                snapshot.data.docs;
+            List<Map<String, dynamic>> notificationList =
+                documents.map((doc) => doc.data()).toList();
 
-            if (notilist.isEmpty) {
-              return Center(
+            if (notificationList.isEmpty) {
+              return const Center(
                 child: Text('No notifications found.'),
               );
             }
 
             return ListView.builder(
-              itemCount: notilist.length,
+              itemCount: notificationList.length,
               itemBuilder: (context, index) {
-                Map<String, dynamic> orderData = notilist[index];
-                var orderStatus = orderData['order_status'];
-                return ListTile(
-                  title: Text('Notification'),
-                  subtitle: Text('Order Status: $orderStatus'),
-                );
+                Map<String, dynamic> notificationData = notificationList[index];
+                print('Notification Data: $notificationData');
+
+                var orderStatus = notificationData['order_status'];
+                print('Order Status: $orderStatus');
+
+                var notificationTime = notificationData['time'];
+                print('Notification Time: $notificationTime');
+
+                String statusMessage = getOrderStatusMessage(orderStatus);
+                if (orderStatus == null) {
+                  return ListTile(
+                    title: const Text('Notification'),
+                    subtitle: const Text('No status available'),
+                    trailing: Text(notificationTime ?? ""),
+                  );
+                  ;
+                }
+
+                switch (orderStatus) {
+                  case 'accept':
+                    return ListTile(
+                      title: const Text('Notification'),
+                      subtitle: const Text('Your order has been accepted'),
+                      trailing: Text(notificationTime ?? ""),
+                    );
+                  case 'packed':
+                    return ListTile(
+                      title: const Text('Notification'),
+                      subtitle: const Text('Your order has been packed'),
+                      trailing: Text(notificationTime ?? ""),
+                    );
+
+                  case 'shipped':
+                    return ListTile(
+                      title: const Text('Notification'),
+                      subtitle: const Text('Your order has been shipped'),
+                      trailing: Text(notificationTime ?? ""),
+                    );
+                  default:
+                    return ListTile(
+                      title: const Text('Notification'),
+                      subtitle: Text('$orderStatus'),
+                      trailing: Text(notificationTime ?? ""),
+                    );
+                }
               },
             );
           }
         },
       ),
     );
+  }
+
+  String getOrderStatusMessage(String orderStatus) {
+    print("Order status received: $orderStatus");
   }
 }
